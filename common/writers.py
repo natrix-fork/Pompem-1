@@ -85,17 +85,18 @@ def write_txt(dict_all_results):
     """
         Write result in file out.txt for better viewing.
     """
+
+    for word_search, list_results in dict_all_results.items():
+
+        for dict_result in list_results:
+
+            for key, result in dict_result.items():
+                for exploit_data in result:
+                    data = str(exploit_data["name"].replace('"', "'"))
+                    url = exploit_data["url"].replace('"', "'")
+
+                    dict_json[data] = url
+
     with open("out.txt", "w") as f:
-
-        for word_search, list_results in dict_all_results.items():
-
-            for dict_result in list_results:
-
-                for key, result in dict_result.items():
-                    for exploit_data in result:
-                        data = str(exploit_data["name"].replace('"', "'"))
-                        url = exploit_data["url"].replace('"', "'")
-
-                        dict_json[data] = url
         for key, value in dict_json.items():
             f.write(f"\"{key}\": \"{value}\"\n")
